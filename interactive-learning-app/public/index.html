@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Learning Application</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <!-- Import Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Import Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>Interactive Learning Application</h1>
+    </header>
+    <div class="container">
+        <section id="auth-section">
+            <h2>Welcome</h2>
+            <p>Please choose an option:</p>
+            <div class="auth-buttons">
+                <button id="register-btn" class="btn">Register</button>
+                <button id="login-btn" class="btn">Login</button>
+                <button id="admin-login-btn" class="btn">Admin Login</button>
+            </div>
+        </section>
+
+        <!-- Registration Form -->
+        <section id="register-form" style="display: none;">
+            <h2>Register</h2>
+            <form>
+                <div class="input-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="register-email" placeholder="Enter your email" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="register-username" placeholder="Enter your username" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="register-password" placeholder="Enter your password" required>
+                </div>
+                <button id="submit-register" type="submit" class="btn">Register</button>
+            </form>
+        </section>
+
+        <!-- User Login Form -->
+        <section id="login-form" style="display: none;">
+            <h2>Login</h2>
+            <form>
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="login-username" placeholder="Enter your username" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="login-password" placeholder="Enter your password" required>
+                </div>
+                <button id="submit-login" type="submit" class="btn">Login</button>
+            </form>
+        </section>
+
+        <!-- Admin Login Form -->
+        <section id="admin-login-form" style="display: none;">
+            <h2>Admin Login</h2>
+            <form>
+                <div class="input-group">
+                    <i class="fas fa-user-shield"></i>
+                    <input type="text" id="admin-username" placeholder="Enter admin username" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="admin-password" placeholder="Enter admin password" required>
+                </div>
+                <button id="submit-admin-login" type="submit" class="btn">Login</button>
+            </form>
+        </section>
+
+        <!-- Redirect to Home Page -->
+        <section id="redirect-home" style="display: none;">
+            <h2>Welcome!</h2>
+            <p>You have successfully registered or logged in.</p>
+            <button id="go-to-home" class="btn">Go to Home Page</button>
+        </section>
+    </div>
+    <footer>
+        <p>© 2025 Interactive Learning Application. All rights reserved.</p>
+    </footer>
+    <script>
+        // Show and hide forms
+        const registerBtn = document.getElementById('register-btn');
+        const loginBtn = document.getElementById('login-btn');
+        const adminLoginBtn = document.getElementById('admin-login-btn');
+        const registerForm = document.getElementById('register-form');
+        const loginForm = document.getElementById('login-form');
+        const adminLoginForm = document.getElementById('admin-login-form');
+        const authSection = document.getElementById('auth-section');
+        const redirectHome = document.getElementById('redirect-home');
+        const goToHomeBtn = document.getElementById('go-to-home');
+
+        registerBtn.addEventListener('click', () => {
+            authSection.style.display = 'none';
+            registerForm.style.display = 'block';
+        });
+
+        loginBtn.addEventListener('click', () => {
+            authSection.style.display = 'none';
+            loginForm.style.display = 'block';
+        });
+
+        adminLoginBtn.addEventListener('click', () => {
+            authSection.style.display = 'none';
+            adminLoginForm.style.display = 'block';
+        });
+
+        // Handle registration
+        document.getElementById('submit-register').addEventListener('click', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('register-email').value;
+            const username = document.getElementById('register-username').value;
+            const password = document.getElementById('register-password').value;
+
+            if (email && username && password) {
+                alert('Registration successful!');
+                registerForm.style.display = 'none';
+                redirectHome.style.display = 'block';
+            } else {
+                alert('Please fill in all fields.');
+            }
+        });
+
+        // Handle user login
+        document.getElementById('submit-login').addEventListener('click', (e) => {
+            e.preventDefault();
+            const username = document.getElementById('login-username').value;
+            const password = document.getElementById('login-password').value;
+
+            if (username && password) {
+                alert('Login successful!');
+                loginForm.style.display = 'none';
+                redirectHome.style.display = 'block';
+            } else {
+                alert('Invalid username or password.');
+            }
+        });
+
+        // Handle admin login
+        document.getElementById('submit-admin-login').addEventListener('click', (e) => {
+            e.preventDefault();
+            const adminUsername = document.getElementById('admin-username').value;
+            const adminPassword = document.getElementById('admin-password').value;
+
+            if (adminUsername === 'admin' && adminPassword === 'admin123') {
+                alert('Admin login successful!');
+                window.location.href = 'admin-review.html'; // Redirect to admin review page
+            } else {
+                alert('Invalid admin credentials.');
+            }
+        });
+
+        // Redirect to home page
+        goToHomeBtn.addEventListener('click', () => {
+            window.location.href = 'home-page.html';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,169 @@
+<<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <!-- Import Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Import Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <h1>Quiz</h1>
+    </header>
+    <div class="container">
+        <div id="quiz-container">
+            <h2 id="question">Question will appear here</h2>
+            <div id="options">
+                <!-- Options will be dynamically added here -->
+            </div>
+            <button id="next-question" class="btn" disabled>Next Question</button>
+        </div>
+    </div>
+    <footer>
+        <p>© 2025 Interactive Learning Application. All rights reserved.</p>
+        <button id="go-to-home" class="btn home-btn">Go to Home Page</button>
+    </footer>
+    <script>
+        const questions = [
+            {
+                question: "What does HTML stand for?",
+                options: ["Hyper Text Markup Language", "Home Tool Markup Language", "Hyperlinks and Text Markup Language", "Hyper Tool Markup Language"],
+                answer: "Hyper Text Markup Language"
+            },
+            {
+                question: "Which CSS property is used to change the text color?",
+                options: ["color", "font-color", "text-color", "background-color"],
+                answer: "color"
+            },
+            {
+                question: "What does the 'var' keyword do in JavaScript?",
+                options: ["Declares a variable", "Declares a function", "Declares a constant", "Declares a class"],
+                answer: "Declares a variable"
+            },
+            {
+                question: "Which HTML tag is used to define an internal style sheet?",
+                options: ["<style>", "<css>", "<script>", "<link>"],
+                answer: "<style>"
+            },
+            {
+                question: "Which JavaScript method is used to write into the browser console?",
+                options: ["console.log()", "console.write()", "console.output()", "console.print()"],
+                answer: "console.log()"
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let attempts = 0;
+
+        function loadQuestion() {
+            const questionElement = document.getElementById('question');
+            const optionsContainer = document.getElementById('options');
+            const currentQuestion = questions[currentQuestionIndex];
+
+            questionElement.textContent = currentQuestion.question;
+            optionsContainer.innerHTML = '';
+
+            currentQuestion.options.forEach(option => {
+                const optionContainer = document.createElement('div');
+                optionContainer.classList.add('option-container');
+
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.classList.add('option-btn');
+                button.onclick = () => selectAnswer(button, option);
+
+                const tickIcon = document.createElement('i');
+                tickIcon.className = 'fas fa-check tick-icon';
+                tickIcon.style.display = 'none';
+
+                optionContainer.appendChild(button);
+                optionContainer.appendChild(tickIcon);
+                optionsContainer.appendChild(optionContainer);
+            });
+
+            document.getElementById('next-question').disabled = true;
+        }
+
+        function selectAnswer(button, selectedOption) {
+            const currentQuestion = questions[currentQuestionIndex];
+            const optionsButtons = document.querySelectorAll('.option-btn');
+            const tickIcons = document.querySelectorAll('.tick-icon');
+
+            // Disable all buttons after selecting an answer
+            optionsButtons.forEach(btn => btn.disabled = true);
+
+            // Hide all tick icons
+            tickIcons.forEach(icon => (icon.style.display = 'none'));
+
+            // Show the tick icon for the selected answer
+            const tickIcon = button.nextElementSibling;
+            tickIcon.style.display = 'inline';
+
+            if (selectedOption === currentQuestion.answer) {
+                button.style.backgroundColor = 'green';
+                score++;
+            } else {
+                button.style.backgroundColor = 'red';
+            }
+
+            document.getElementById('next-question').disabled = false;
+        }
+
+        document.getElementById('next-question').addEventListener('click', () => {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        });
+
+        function showResults() {
+            attempts++;
+            const quizContainer = document.getElementById('quiz-container');
+            quizContainer.innerHTML = `
+                <h2>Quiz Completed!</h2>
+                <p>Your Score: ${score} / ${questions.length}</p>
+                <button onclick="reviewQuiz()" class="btn">Review Quiz</button>
+                ${attempts < 2 ? `<button onclick="restartQuiz()" class="btn">Retry Quiz</button>` : ''}
+                <a href="next-page.html" class="btn">Next Page</a>
+            `;
+        }
+
+        function reviewQuiz() {
+            const quizContainer = document.getElementById('quiz-container');
+            quizContainer.innerHTML = `
+                <h2>Quiz Review</h2>
+                <ul>
+                    ${questions.map((q, index) => `
+                        <li>
+                            <strong>Q${index + 1}: ${q.question}</strong><br>
+                            Correct Answer: ${q.answer}
+                        </li>
+                    `).join('')}
+                </ul>
+                <a href="next-page.html" class="btn">Next Page</a>
+            `;
+        }
+
+        function restartQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            loadQuestion();
+        }
+
+        // Redirect to home page
+        document.getElementById('go-to-home').addEventListener('click', () => {
+            window.location.href = 'home-page.html';
+        });
+
+        // Load the first question on page load
+        loadQuestion();
+    </script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Interactive Learning Application</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <!-- Import Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Import Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>Welcome to the Interactive Learning System</h1>
+    </header>
+    <div class="container">
+        <section id="home-section">
+            <h2>Explore the System</h2>
+            <div class="home-grid">
+                <a href="quiz.html" class="home-item">
+                    <i class="fas fa-question-circle"></i>
+                    <span>Quiz</span>
+                </a>
+                <a href="peer-messaging.html" class="home-item">
+                    <i class="fas fa-comments"></i>
+                    <span>Peer Messaging</span>
+                </a>
+                <a href="lecturer-student messaging.html" class="home-item">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <span>Lecturer-Student Messaging</span>
+                </a>
+                <button onclick="quitApp()" class="home-item quit-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Quit</span>
+                </button>
+            </div>
+        </section>
+    </div>
+    <footer>
+        <p>© 2025 Interactive Learning Application. All rights reserved.</p>
+    </footer>
+    <script>
+        // Function to quit the app
+        function quitApp() {
+            if (confirm("Are you sure you want to exit the application?")) {
+                window.close(); // Attempt to close the browser tab
+            }
+        }
+    </script>
+</body>
+</html>

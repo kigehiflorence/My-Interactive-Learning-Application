@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Review</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <!-- Import Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="auth-container">
+        <h1>Admin Access</h1>
+        <p>Please enter the secret key to access this page:</p>
+        <input type="password" id="secret-key" placeholder="Enter secret key">
+        <button id="submit-key" class="btn">Submit</button>
+        <p id="error-message" style="color: red; display: none;">Invalid secret key. Please try again.</p>
+    </div>
+
+    <div id="review-container" style="display: none;">
+        <h1>Admin Review</h1>
+        <table id="results-table">
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Quiz Marks</th>
+                    <th>Comments</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Student results will be dynamically added here -->
+            </tbody>
+        </table>
+        <a href="peer-messaging.html" class="link">Go to Peer Messaging</a>
+    </div>
+
+    <script>
+        // Secret key for admin access
+        const SECRET_KEY = "admin123";
+
+        // Mock student data
+        const students = [
+            { name: "Alice", marks: 85 },
+            { name: "Bob", marks: 90 },
+            { name: "Charlie", marks: 78 },
+            { name: "Diana", marks: 92 }
+        ];
+
+        const authContainer = document.getElementById('auth-container');
+        const reviewContainer = document.getElementById('review-container');
+        const submitKeyButton = document.getElementById('submit-key');
+        const secretKeyInput = document.getElementById('secret-key');
+        const errorMessage = document.getElementById('error-message');
+        const resultsTableBody = document.querySelector('#results-table tbody');
+
+        // Function to validate the secret key
+        submitKeyButton.addEventListener('click', () => {
+            const enteredKey = secretKeyInput.value.trim();
+            if (enteredKey === SECRET_KEY) {
+                authContainer.style.display = 'none';
+                reviewContainer.style.display = 'block';
+                loadStudentResults();
+            } else {
+                errorMessage.style.display = 'block';
+            }
+        });
+
+        // Function to load student results into the table
+        function loadStudentResults() {
+            students.forEach(student => {
+                const row = document.createElement('tr');
+
+                const nameCell = document.createElement('td');
+                nameCell.textContent = student.name;
+
+                const marksCell = document.createElement('td');
+                marksCell.textContent = student.marks;
+
+                const commentsCell = document.createElement('td');
+                const commentInput = document.createElement('textarea');
+                commentInput.placeholder = "Add a comment...";
+                commentInput.rows = 2;
+                commentInput.style.width = "100%";
+                commentsCell.appendChild(commentInput);
+
+                row.appendChild(nameCell);
+                row.appendChild(marksCell);
+                row.appendChild(commentsCell);
+
+                resultsTableBody.appendChild(row);
+            });
+        }
+    </script>
+</body>
+</html>
