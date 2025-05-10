@@ -18,16 +18,17 @@ An engaging and user-friendly interactive learning platform designed to help stu
 
 ## 📖 About
 
-The **Interactive Learning App** is a web-based educational tool built to make learning fun and interactive. Users can select different topics, take quizzes, watch tutorials, and participate in challenges designed to reinforce their knowledge in an enjoyable way.
+The **Interactive Learning App** is a web-based educational tool built to make learning fun and interactive. Users can select different topics, take quizzes, review the quizzes, interaxt with their peers as well as their lectures for consultations.
 
 ---
 
 ## ✨ Features
 
 - 📖 Topic-based learning modules
-- 🎮 Interactive quizzes and games
+- 🎮 Interactive quizzes
 - 📊 Progress tracking system
-- 🎥 Video tutorials
+-  Peer-peer interaction
+-  Lecturer-peer interaction
 - 📱 Responsive and clean UI for all devices
 
 ---
